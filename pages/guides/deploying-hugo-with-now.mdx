@@ -121,8 +121,8 @@ And with this configuration set up, you can now deploy your Hugo project.
 <Note>
   Finally, before deploying, ensure the <InlineCode>draft</InlineCode> value in
   your <InlineCode>my-first-post.md</InlineCode> file is set to{' '}
-  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>,
-  the content of your posts won't show up in production.
+  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>
+  , the content of your posts won't show up in production.
 </Note>
 
 If you have Now CLI on your system, you can deploy from your terminal with just one command:
@@ -135,7 +135,7 @@ When your app is deployed, you will receive a deployment URL like the following:
 
 ## Bonus: Cache Your Hugo Assets
 
-Caching makes your site fast. You can configure Now's routes within your `now.json` configuration fole to set up caching headers.
+Caching makes your site fast and reduces bandwith consumption for your users. You can configure Now's routes within your `now.json` configuration fole to set up caching headers.
 
 In the `now.json` configuration file, add the following `routes` property:
 
@@ -144,7 +144,7 @@ In the `now.json` configuration file, add the following `routes` property:
   ...
   "routes": [
     {"src": "^/dist/js/(.*)", "headers": {"cache-control": "public,max-age=31536000,immutable"}, "dest": "/js/$1" },
-    {"src": "^/dist/css/(.*)", "headers": {"cache-control": "public,max-age=31536000,immutable"} "dest": "/css/$1"},
+    {"src": "^/dist/css/(.*)", "headers": {"cache-control": "public,max-age=31536000,immutable"}, "dest": "/css/$1"},
     {"src": "^/images/(.*)", "headers": {"cache-control": "max-age=31536000,immutable"}, "dest": "/images/$1"},
     {"src": "^/(.*).html", "headers": {"cache-control": "public,max-age=0,must-revalidate"}, "dest": "/index.html"}
   ]
