@@ -17,18 +17,23 @@ export const meta = {
 
 [Hugo](https://gohugo.io) is a very popular framework for creating static websites. It's fast and flexible.
 
-In this guide, we will set up a Hugo website and deploy it with ZEIT Now.
+In this guide, we will walk you through setting up a Hugo website and deploying it with [ZEIT Now](/now).
 
-## Step 1: Set Up Your Hugo Project
+## Step 1: Setting Up Your Hugo Project
 
-To get a Hugo project running, you need to install a precompiled binary on your machine. Hugo currently provides pre-built binaries for MacOS, Windows, and Linux.
+To [get a Hugo project running](https://gohugo.io/getting-started/quick-start/), you need to install a precompiled binary on your machine. Hugo currently provides [pre-built binaries for macOS, Windows, and Linux](https://gohugo.io/getting-started/installing/).
 
 Therefore, you can either download the appropriate version for your machine from the [GitHub releases](https://github.com/gohugoio/hugo/releases) or install it via your machine's package manager.
 
-For MacOS users, you can install Hugo via Brew:
+For macOS users, you can install Hugo via [Brew](https://brew.sh):
 
 <TerminalInput>brew install hugo</TerminalInput>
 <Caption>Installing <GenericLink href="https://gohugo.io/getting-started/installing/">Hugo CLI</GenericLink> via <GenericLink href="https://brew.sh/">Homebrew</GenericLink>.</Caption>
+
+For Windows users, you can install Hugo via [Chocolatey](https://chocolatey.org/):
+
+<TerminalInput>choco install hugo-confirm</TerminalInput>
+<Caption>Installing <GenericLink href="https://gohugo.io/getting-started/installing/">Hugo CLI</GenericLink> via <GenericLink href="https://chocolatey.org/">Chocolatey</GenericLink>.</Caption>
 
 Next, run the following command to create a Hugo project via the CLI:
 
@@ -52,7 +57,7 @@ You can add some content to the Hugo project by running the following command:
 <TerminalInput>hugo new posts/my-first-post.md</TerminalInput>
 <Caption>Creating a new post in the Hugo project via the CLI.</Caption>
 
-Once you are done running the command, edit the `my-first-post.md` file and add the following content:
+Once you are done running the command, edit the `my-first-post.md` file and add the following content below the generated metadata:
 
 ```
 ## Deploying Hugo with ZEIT Now
@@ -86,7 +91,7 @@ Your Hugo website is ready for deployment. Create a [`now.json` configuration fi
   project.
 </Caption>
 
-The `now.json` file allows your deployment achieve a few things:
+The `now.json` file allows you to achieve a few things with your deployment:
 
 - Defines a `version` property to ensure you are using the latest [Now 2.0 platform](/docs/v2/platform/overview) version.
 - Defines a project `name` that your deployments will be sorted under and known by under Now.
@@ -119,13 +124,15 @@ Ensure that you run the following command on the `build.sh` file to make it exec
 And with this configuration set up, you can now deploy your Hugo project.
 
 <Note>
-  Finally, before deploying, ensure the <InlineCode>draft</InlineCode> value in
-  your <InlineCode>my-first-post.md</InlineCode> file is set to{' '}
-  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>,
-  the content of your posts won't show up in production.
+  Before deploying, ensure the <InlineCode>draft</InlineCode> value in your{' '}
+  <InlineCode>my-first-post.md</InlineCode> file is set to{' '}
+  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>
+  , the content of your posts won't show up in production.
 </Note>
 
-If you have Now CLI on your system, you can deploy from your terminal with just one command:
+If you have don't have [Now CLI](/docs/v2/getting-started/installation#now-cli) on your system, you can install it via the [Now Desktop](https://zeit.co/download), which is the easiest way to get started with Now. You can also install it with `npm` as follows: `npm install -g now`.
+
+Then, you can deploy from your terminal with just one command:
 
 <TerminalInput>now</TerminalInput>
 
@@ -135,7 +142,7 @@ When your app is deployed, you will receive a deployment URL like the following:
 
 ## Bonus: Cache Your Hugo Assets
 
-Caching makes your site fast and reduces bandwith consumption for your users. You can configure Now's routes within your `now.json` configuration file to set up caching headers.
+Caching makes your site fast and reduces bandwidth consumption for your users and cost for you. You can configure Now's routes within your `now.json` configuration file to set up caching headers.
 
 In the `now.json` configuration file, add the following `routes` property:
 
@@ -173,11 +180,9 @@ To configure Now further, please see these additional topics and guides:
   Learn more about aliasing to your deployments.
 </Card>
 
-<Card
-  title="Deploying Gatsby with Now"
-  href="/guides/deploying-gatsby-with-now"
->
-  Create a Gatsby Website and Deploy It with Now
+<Card title="Routes" href="/docs/v2/deployments/routes">
+  Learn more about how Now uses routes to define behavior of how a request is
+  handled on the routing side.
 </Card>
 
 <Card title="More Guides" href="/guides">
