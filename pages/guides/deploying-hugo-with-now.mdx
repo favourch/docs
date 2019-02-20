@@ -73,7 +73,7 @@ Your Hugo website is ready for deployment. Create a [`now.json` configuration fi
   "name": "my-hugo-project",
   "builds": [
     {
-      "src": "package.json",
+      "src": "build.sh",
       "use": "@now/static-build",
       "config": { "distDir": "public" }
     }
@@ -86,44 +86,44 @@ Your Hugo website is ready for deployment. Create a [`now.json` configuration fi
   project.
 </Caption>
 
-<Note>
-  By default, Hugo does not generate a <InlineCode>package.json</InlineCode> so
-  you'd have to add a <InlineCode>package.json</InlineCode> file to{' '}
-  <InlineCode>my-hugo-project</InlineCode> directory.
-</Note>
-
-Next, run the following command to add the `hugo-cli` package.
-
-<TerminalInput>yarn add hugo-cli</TerminalInput>
-
 The `now.json` file allows your deployment achieve a few things:
 
 - Defines a `version` property to ensure you are using the latest [Now 2.0 platform](/docs/v2/platform/overview) version.
 - Defines a project `name` that your deployments will be sorted under and known by under Now.
-- The [`builds` property](/docs/v2/deployments/builds) allows Now to use a [Builder](/docs/v2/deployments/builders/overview/) with a specific source target. We used the [`@now/static-build`](/docs/v2/deployments/official-builders/static-build-now-static-build/) to build and deploy a static project. This module takes a Node.js `package.json` file, installs its listed dependencies, executes a configured `now-build` script, and exposes the resulting `dist` directory as the [build output](/docs/v2/deployments/builds/#sources-and-outputs) for serving.
+- The [`builds` property](/docs/v2/deployments/builds) allows Now to use a [Builder](/docs/v2/deployments/builders/overview/) with a specific source target. We used the [`@now/static-build`](/docs/v2/deployments/official-builders/static-build-now-static-build/) to build and deploy a static project. This module takes the `build.sh` file as the entry point in this case, executes the commands inside the shell file, and exposes the resulting `public` directory as the [build output](/docs/v2/deployments/builds/#sources-and-outputs) for serving.
 - The [`distDir` option](/docs/v2/deployments/official-builders/static-build-now-static-build/#configuring-the-dist-directory) in the build step instructs Now to identify `public` as the static folder and build output directory.
 
-For the build property that you configured, add a `now-build` script in the `package.json` file to specify what command Now will run to build the app in the cloud.
+Now, create the `build.sh` file in the `my-hugo-project` root directory and add the following code to it:
 
-```json
-{
-  ...
-  "scripts": {
-    ...
-    "now-build": "hugo"
-  }
-}
+```bash
+yum install -y wget
+
+wget https://github.com/gohugoio/hugo/releases/download/v0.31.1/hugo_0.31.1_Linux-64bit.tar.gz
+tar -xzf hugo_0.31.1_Linux-64bit.tar.gz
+
+./hugo
 ```
 
 <Caption>
-  A <InlineCode>scripts</InlineCode> property within a{' '}
-  <InlineCode>package.json</InlineCode>, containing a script to build a Hugo
-  project.{' '}
+  A <InlineCode>build.sh</InlineCode> shell file containing commands to install
+  and run Hugo on Now
+</Caption>
+
+Ensure that you run the following command on the `build.sh` file to make it executable.
+
+<TerminalInput>chmod +x build.sh</TerminalInput>
+<Caption>
+  A command to grant appropriate permissions to make <InlineCode>build.sh</InlineCode> executable
 </Caption>
 
 And with this configuration set up, you can now deploy your Hugo project.
 
-Finally, before deploying, ensure the `draft` value in your `my-first-post.md` file is set to `false`. If it remains as `true`, the content of your posts won't show up in production.
+<Note>
+  Finally, before deploying, ensure the <InlineCode>draft</InlineCode> value in
+  your <InlineCode>my-first-post.md</InlineCode> file is set to{' '}
+  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>
+  , the content of your posts won't show up in production.
+</Note>
 
 If you have Now CLI on your system, you can deploy from your terminal with just one command:
 
