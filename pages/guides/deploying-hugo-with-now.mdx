@@ -121,8 +121,8 @@ And with this configuration set up, you can now deploy your Hugo project.
 <Note>
   Finally, before deploying, ensure the <InlineCode>draft</InlineCode> value in
   your <InlineCode>my-first-post.md</InlineCode> file is set to{' '}
-  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>
-  , the content of your posts won't show up in production.
+  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>,
+  the content of your posts won't show up in production.
 </Note>
 
 If you have Now CLI on your system, you can deploy from your terminal with just one command:
@@ -131,11 +131,34 @@ If you have Now CLI on your system, you can deploy from your terminal with just 
 
 Otherwise, if you want your application to deploy automatically, you can [install the Now for GitHub app](/docs/v2/integrations/now-for-github/) and have updates for your GitHub repository deploy and alias on every push.
 
-When your app is deployed, you will receive a deployment URL like the following: [https://my-hugo-project-h8wsh8ii0.now.sh/](https://my-hugo-project-h8wsh8ii0.now.sh/)
+When your app is deployed, you will receive a deployment URL like the following: [https://my-hugo-project-kj4fu0pcq.now.sh/](https://my-hugo-project-kj4fu0pcq.now.sh/)
+
+## Bonus: Cache Your Hugo Assets
+
+Caching makes your site fast. You can configure Now's routes within your `now.json` configuration fole to set up caching headers.
+
+In the `now.json` configuration file, add the following `routes` property:
+
+```json
+{
+  ...
+  "routes": [
+    {"src": "^/dist/js/(.*)", "headers": {"cache-control": "public,max-age=31536000,immutable"}, "dest": "/js/$1" },
+    {"src": "^/dist/css/(.*)", "headers": {"cache-control": "public,max-age=31536000,immutable"} "dest": "/css/$1"},
+    {"src": "^/images/(.*)", "headers": {"cache-control": "max-age=31536000,immutable"}, "dest": "/images/$1"},
+    {"src": "^/(.*).html", "headers": {"cache-control": "public,max-age=0,must-revalidate"}, "dest": "/index.html"}
+  ]
+}
+```
+
+<Caption>
+  Routes configuration for setting caching headers in a{' '}
+  <InlineCode>now.json</InlineCode> configuration file.
+</Caption>
 
 ## Resources
 
-For more information on working with Gatsby, please refer to [their documentation](https://www.gatsbyjs.org/docs/).
+For more information on working with Hugo, please refer to [their documentation](https://gohugo.io/documentation/).
 
 To configure Now further, please see these additional topics and guides:
 
@@ -161,5 +184,4 @@ To configure Now further, please see these additional topics and guides:
   See more guides that help you move forward with your projects and deployments.
 </Card>
 
-export default ({ children }) => <Guide meta={meta}>{children}</Guide
->
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
